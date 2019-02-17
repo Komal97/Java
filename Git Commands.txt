@@ -1,0 +1,149 @@
+git init : To initialize git
+
+git status : To check the status of the git
+
+git add . : add only inserted and modified contents
+git add -u : add only deleted contents
+git add -A : add all changes whether inserted or deleted
+
+WHEN SINGLE PERSON IS WORKING ON IT :
+-------------------------------------
+
+TO ADD A NEW PROJECT
+---------------------
+
+1) First create a new repository at GitHub manually and copy repository link
+2) git remote add origin "link"
+3) git add .
+4) git commit -m "description"
+5) git push -u origin master (for first tym)
+
+TO ADD ALL CHANGES TO YOUR REPOSITORY
+----------------------------------
+1) git add .
+2) git commit -m "description"
+3) git push origin master 
+
+WAYS TO BACKTRACE GIT
+------------------------
+
+git show HEAD
+(In Git, the commit you are currently on is known as the HEAD commit. In many cases, the most recently made commit is the HEAD commit.)
+
+1)git checkout HEAD filename: 
+Discards changes in the working directory.
+
+2)git reset HEAD filename: 
+Unstages file changes in the staging area.It does not discard file changes from the working directory, it just removes them from the staging area.
+This is done when we just add it but file is not committed.
+
+3)git reset SHA: 
+Can be used to reset to a previous commit in your commit history.
+(SHA - first 7 letters/numbers of last commit )
+commit can be seen through "git log"
+
+TO SEE THE DIFFERENCE BETWEEN FILES
+---------------------------------
+git diff file_name
+
+TO CHECK ALL COMMIT TILL NOW
+-----------------------------
+git log
+
+GIT BRANCH
+-----------
+git branch(display current branch)
+
+git branch new_branch(create new branch)
+
+git checkout branch_name(type the name of the branch you want to go on)
+
+To merge new branch with master:
+------------------------------------
+1) git checkout master(switch back to master)
+2) git merge branch_name(branch_name is new branch_name. It merges the new branch with the master branch)
+
+MERGE CONFLICTS
+----------------
+
+Let's say you decide you'd like to merge the changes from fencing into master.Here's where the trouble begins!
+   
+1) You've made commits on separate branches that alter the same line in conflicting ways. Now, when you try to merge fencing into master, 
+   Git will not know which version of the file to keep.
+   Git asks us which version of the file to keep: the version on master or the version on fencing. You decide you want the fencing version.
+
+-> From the code editor:
+   Delete the content of the line as it appears in the master branch
+   Delete all of Git's special markings including the words HEAD and fencing. If any of Git's markings remain, 
+   for example, >>>>>>> and =======, the conflict remains.
+   
+-> after this add and commit the changes
+   
+TO DELETE A BRANCH
+-------------------
+git branch -d branch_name( branch_name is the second branch which is not required after merging)
+
+WHEN MANY PEOPLE WORKING ON SAME PROJECT :
+-------------------------------------------
+
+REMOTE
+-------
+A remote is a shared Git repository that allows multiple collaborators to work on the same Git project from different locations.
+
+TO DOWNLOAD A PROJECT
+----------------------
+git clone remote_location clone_name
+(remote_location : tells Git where to go to find the remote. This could be a web address, or a filepath(path from git)
+ clone_name : s the name you give to the directory in which Git will clone the repository.)
+ 
+ABOUT REMOTE
+------------
+1) git remote -v(You can see a list of a Git project's remotes ,to check number of remotes)
+
+-> Git lists the name of the remote, origin, as well as its location.
+-> Git automatically names this remote origin, because it refers to the remote repository of origin. However, it is possible to safely change its name.
+-> The remote is listed twice: once for (fetch) and once for (push). We'll learn about these later in the lesson.
+
+2) git fetch
+
+-> This command will not merge changes from the remote into your local repository. It brings those changes onto what's called a remote branch.
+
+TO MERGE CHANGES
+-----------------
+1) (a) git fetch upstream (upstream is remote of the main repository)(forked person wants to merge)
+   (b) git fetch origin (upstream is remote of the main repository)(admin wants to merge)
+
+2) git checkout master (to come back to master branch)
+3) a)git merge upstream/master 
+   b)git merge origin/master
+
+TO CREATE A BRANCH AND SWITCH TO IT AT THE SAME TIME
+-----------------------------------------------------
+1) git checkout -b "branch name"
+
+TO CREATE A NEW REMOTE
+-----------------------
+1) git remote add upstream "link"
+  (this remote is create when we have to work on repository belong to someone else)
+  
+Now that you've merged origin/master into your local master branch, you're ready to contribute some work of your own.
+The workflow for Git collaborations typically follows this order:
+
+1) Fetch and merge changes from the remote
+2) Create a branch to work on a new project feature
+3) Develop the feature on your branch and commit your work
+4) Fetch and merge from the remote again (in case new commits were made while you were working)
+5) Push your branch up to the remote for review
+  
+TO PUSH INTO REMOTE
+--------------------
+-> git push origin your_branch_name ( will push your branch up to the remote, origin. )
+
+TO RESOLVE "INDEX FILE CORRUPT"
+-------------------------------
+del .git\index
+git reset
+
+TO REMOVE REMOTE
+-----------------
+git remote rm destination (destination : name of remote to be deleted)
